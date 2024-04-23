@@ -14,7 +14,6 @@ pipeline {
             steps {
                 script {
                     sshagent(credentials: ['35.239.129.111']) {
-                        // Add changes, commit, and push to GitHub
                         sh '''
                             ssh bharatbodh@35.239.129.111 "
                             cd /home/bharatbodh/bharatbodh-bench/apps &&
