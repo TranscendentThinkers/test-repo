@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    
     stages {
         stage('Pulling Changes') {
             steps {
@@ -25,6 +26,13 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            // Trigger the cd-pipeline
+            build job: 'Jenkinsfile_CD'
         }
     }
 }
