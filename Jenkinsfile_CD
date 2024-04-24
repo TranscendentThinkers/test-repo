@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Check for Changes') {
+            steps {
+                script {
+                    def changes = sh(script: 'ssh bharatbodh@104.197.226.187 "cd /home/bharatbodh/frappe-bench/apps && git fetch && git rev-list HEAD...origin/master --count"', returnStdout: true).trim()
+                    
+                    if (changes.toInteger() > 0) {
+                        // If changes are present, pull them
+                        echo 'Changes detected, pulling changes...'
+                        sshagent(credentials: ['104.197.226.187']) {
+                            sh 'ssh bharatbodh@104.197.226.187 "cd /home/bharatbodh/frappe-bench/apps && git pull origin master"'
+                        }
+                    } else {
+                        echo 'No changes to fetch'
+                    }
+                }
+            }
+        }
+    }
+}
