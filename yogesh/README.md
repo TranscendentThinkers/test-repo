@@ -1,7 +1,0 @@
-## Yogesh
-
-Yogesh
-
-#### License
-
-mit
